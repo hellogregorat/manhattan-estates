@@ -1,0 +1,72 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String     @unique
+  passwordHash String
+  role         String
+  phone        String     @default("")
+  createdAt    DateTime   @default(now())
+
+  properties   Property[]
+  favorites    Favorite[]
+  inquiries    Inquiry[]
+}
+
+model Property {
+  id          Int        @id @default(autoincrement())
+  ownerId     Int?
+  owner       User?      @relation(fields: [ownerId], references: [id])
+  title       String
+  price       Int
+  beds        Int        @default(0)
+  baths       Float      @default(0)
+  sqft        Int        @default(0)
+  location    String
+  type        String
+  condition   String     @default("Excellent")
+  description String     @default("")
+  images      String[]
+  featured    Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+
+  favorites   Favorite[]
+  inquiries   Inquiry[]
+}
+
+model Favorite {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  @@unique([userId, propertyId])
+}
+
+model Inquiry {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  property   Property @relation(fields: [propertyId], references: [id])
+  buyerId    Int
+  buyer      User     @relation(fields: [buyerId], references: [id])
+  message    String   @default("")
+  createdAt  DateTime @default(now())
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}

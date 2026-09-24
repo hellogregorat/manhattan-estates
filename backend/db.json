@@ -1,0 +1,312 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "жека",
+      "email": "rerererere@gmail.com",
+      "passwordHash": "$2a$10$JtIiVMhP7mERjU.WIK8y2uq2/SnZiGQe1Krl/Mzcf5BvCxvWx5iom",
+      "role": "owner",
+      "phone": "",
+      "createdAt": "2026-09-18T20:02:41.063Z"
+    },
+    {
+      "id": 2,
+      "name": "апап",
+      "email": "dfdddfdf@gmail.com",
+      "passwordHash": "$2a$10$pjATcPhB72Oz8gC7143si.Zpw7ci/BXvvnfyA834Dq/c2lwOyyfZq",
+      "role": "buyer",
+      "phone": "",
+      "createdAt": "2026-09-18T20:05:00.801Z"
+    },
+    {
+      "id": 3,
+      "name": "rufu",
+      "email": "erer@gmail.com",
+      "passwordHash": "$2a$10$3FUYEP1Fc.2/gD9c/q82e.TE1fvwU.Mo5w0HuwcXUn2.Til0ti.6C",
+      "role": "owner",
+      "phone": "",
+      "createdAt": "2026-09-21T23:06:11.874Z"
+    }
+  ],
+  "properties": [
+    {
+      "id": 1,
+      "ownerId": null,
+      "title": "The Penthouse at Central Park",
+      "price": 18500000,
+      "beds": 4,
+      "baths": 5,
+      "sqft": 5200,
+      "location": "Central Park South, Manhattan",
+      "type": "penthouse",
+      "condition": "Excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+      ],
+      "featured": true,
+      "description": "Breathtaking full-floor penthouse with 360° views of Central Park. Floor-to-ceiling windows, private terrace, and smart home integration.",
+      "createdAt": "2026-01-05T10:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "ownerId": null,
+      "title": "Tribeca Loft Residence",
+      "price": 4200000,
+      "beds": 2,
+      "baths": 2.5,
+      "sqft": 2800,
+      "location": "Tribeca, Manhattan",
+      "type": "loft",
+      "condition": "Renovated",
+      "images": [
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+      ],
+      "featured": true,
+      "description": "Authentic artist loft with 14-foot ceilings, original cast-iron columns, and massive industrial windows overlooking cobblestone streets.",
+      "createdAt": "2026-01-08T10:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "ownerId": null,
+      "title": "Upper East Side Classic",
+      "price": 8750000,
+      "beds": 3,
+      "baths": 3,
+      "sqft": 3400,
+      "location": "Upper East Side, Manhattan",
+      "type": "apartment",
+      "condition": "Excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Pre-war elegance meets modern luxury. Herringbone floors, marble fireplaces, and a chef's kitchen with Gaggenau appliances.",
+      "createdAt": "2026-01-10T10:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "ownerId": null,
+      "title": "Brooklyn Heights Townhouse",
+      "price": 12500000,
+      "beds": 5,
+      "baths": 4.5,
+      "sqft": 6100,
+      "location": "Brooklyn Heights, Brooklyn",
+      "type": "townhouse",
+      "condition": "Excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80"
+      ],
+      "featured": true,
+      "description": "Landmark Greek Revival townhouse with restored original details, English garden, and carriage house.",
+      "createdAt": "2026-01-12T10:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "ownerId": null,
+      "title": "SoHo Designer Duplex",
+      "price": 6800000,
+      "beds": 3,
+      "baths": 3,
+      "sqft": 3100,
+      "location": "SoHo, Manhattan",
+      "type": "duplex",
+      "condition": "Renovated",
+      "images": [
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Architect-designed duplex in a boutique condo. Floating staircase, custom Italian kitchen, and private elevator access.",
+      "createdAt": "2026-01-14T10:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "ownerId": null,
+      "title": "Williamsburg Waterfront",
+      "price": 3200000,
+      "beds": 2,
+      "baths": 2,
+      "sqft": 1900,
+      "location": "Williamsburg, Brooklyn",
+      "type": "apartment",
+      "condition": "Newly Built",
+      "images": [
+        "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Floor-to-ceiling glass walls frame stunning East River views. Building amenities include rooftop pool and private cinema.",
+      "createdAt": "2026-01-16T10:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "ownerId": null,
+      "title": "The Chelsea Mercantile",
+      "price": 5400000,
+      "beds": 3,
+      "baths": 2,
+      "sqft": 2600,
+      "location": "Chelsea, Manhattan",
+      "type": "condo",
+      "condition": "Excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Converted 1913 warehouse condo with soaring ceilings, oversized windows, and a private landscaped roof deck.",
+      "createdAt": "2026-01-18T10:00:00.000Z"
+    },
+    {
+      "id": 8,
+      "ownerId": null,
+      "title": "Gramercy Park Residence",
+      "price": 7100000,
+      "beds": 3,
+      "baths": 3,
+      "sqft": 2950,
+      "location": "Gramercy Park, Manhattan",
+      "type": "apartment",
+      "condition": "Renovated",
+      "images": [
+        "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Rare key-access to Gramercy Park. Fully renovated with custom millwork and a wood-burning fireplace.",
+      "createdAt": "2026-01-20T10:00:00.000Z"
+    },
+    {
+      "id": 9,
+      "ownerId": null,
+      "title": "West Village Carriage House",
+      "price": 9800000,
+      "beds": 4,
+      "baths": 3.5,
+      "sqft": 3800,
+      "location": "West Village, Manhattan",
+      "type": "house",
+      "condition": "Excellent",
+      "images": [
+        "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80"
+      ],
+      "featured": true,
+      "description": "Rare freestanding carriage house on a cobblestone block, with a private garage and a landscaped garden courtyard.",
+      "createdAt": "2026-01-22T10:00:00.000Z"
+    },
+    {
+      "id": 10,
+      "ownerId": null,
+      "title": "Financial District Sky Residence",
+      "price": 2650000,
+      "beds": 1,
+      "baths": 1.5,
+      "sqft": 1350,
+      "location": "Financial District, Manhattan",
+      "type": "apartment",
+      "condition": "Newly Built",
+      "images": [
+        "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "High-floor residence with sweeping harbor and skyline views, full-service building with pool and spa.",
+      "createdAt": "2026-01-24T10:00:00.000Z"
+    },
+    {
+      "id": 11,
+      "ownerId": null,
+      "title": "Harlem Brownstone Restoration",
+      "price": 3450000,
+      "beds": 4,
+      "baths": 3,
+      "sqft": 3600,
+      "location": "Harlem, Manhattan",
+      "type": "townhouse",
+      "condition": "Needs Renovation",
+      "images": [
+        "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Landmark brownstone shell with original details intact — a rare opportunity for a full custom restoration.",
+      "createdAt": "2026-01-26T10:00:00.000Z"
+    },
+    {
+      "id": 12,
+      "ownerId": null,
+      "title": "Park Slope Garden Duplex",
+      "price": 2950000,
+      "beds": 3,
+      "baths": 2,
+      "sqft": 2100,
+      "location": "Park Slope, Brooklyn",
+      "type": "duplex",
+      "condition": "Renovated",
+      "images": [
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+      ],
+      "featured": false,
+      "description": "Sun-filled garden duplex on a tree-lined block, with a chef's kitchen opening onto a private backyard.",
+      "createdAt": "2026-01-28T10:00:00.000Z"
+    },
+    {
+      "id": 13,
+      "ownerId": 1,
+      "title": "Жоский домик",
+      "price": 10000000000000,
+      "beds": 6,
+      "baths": 5,
+      "sqft": 200000,
+      "location": "Манхеттен",
+      "type": "penthouse",
+      "condition": "Excellent",
+      "description": "",
+      "images": [
+        "/uploads/1789761837099-961416700.jpg"
+      ],
+      "featured": false,
+      "createdAt": "2026-09-18T20:03:57.104Z"
+    }
+  ],
+  "favorites": [
+    {
+      "id": 2,
+      "userId": 3,
+      "propertyId": 13
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "propertyId": 12
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "propertyId": 11
+    }
+  ],
+  "inquiries": [
+    {
+      "id": 1,
+      "propertyId": 13,
+      "propertyTitle": "Жоский домик",
+      "buyerId": 2,
+      "buyerName": "апап",
+      "buyerEmail": "dfdddfdf@gmail.com",
+      "message": "привет",
+      "createdAt": "2026-09-21T23:05:38.219Z"
+    },
+    {
+      "id": 2,
+      "propertyId": 12,
+      "propertyTitle": "Park Slope Garden Duplex",
+      "buyerId": 3,
+      "buyerName": "rufu",
+      "buyerEmail": "erer@gmail.com",
+      "message": "dfdf",
+      "createdAt": "2026-09-21T23:06:29.109Z"
+    }
+  ],
+  "nextId": {
+    "user": 4,
+    "property": 14,
+    "favorite": 5,
+    "inquiry": 3
+  }
+}

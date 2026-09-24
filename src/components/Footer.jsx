@@ -1,12 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Building2, Instagram, Twitter, Linkedin, ArrowUpRight } from 'lucide-react'
 
 export default function Footer() {
+  const quickLinks = [
+    { label: 'Properties', to: '/#properties' },
+    { label: 'List Property', to: '/list-property' },
+    { label: 'About', to: '/about' },
+    { label: 'FAQ', to: '/faq' }
+  ]
+
   return (
-    <footer id="contact" className="relative border-t border-white/10">
+    <footer className="relative border-t border-white/10">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#050505]" />
-      
+
       <div className="relative max-w-7xl mx-auto px-6 py-20">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <motion.div
@@ -48,12 +56,12 @@ export default function Footer() {
           >
             <h4 className="text-white font-semibold mb-6">Quick Links</h4>
             <ul className="space-y-3">
-              {['Properties', 'Featured', 'About Us', 'Contact'].map(link => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-[#d4af37] transition-colors flex items-center gap-1 group">
-                    {link}
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <Link to={link.to} className="text-gray-400 hover:text-[#d4af37] transition-colors flex items-center gap-1 group">
+                    {link.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -65,7 +73,11 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <h4 className="text-white font-semibold mb-6">Contact</h4>
+            <h4 className="text-white font-semibold mb-6">
+              <Link to="/contact" className="hover:text-[#d4af37] transition-colors">
+                Contact
+              </Link>
+            </h4>
             <ul className="space-y-3 text-gray-400">
               <li>432 Park Avenue, Suite 1500</li>
               <li>New York, NY 10022</li>

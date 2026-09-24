@@ -1,19 +1,78 @@
 # Manhattan Estates
 
-Luxury NYC real estate landing page built with React, Redux Toolkit, and Framer Motion.
+Полноценный маркетплейс элитной недвижимости в Нью-Йорке: фронтенд на React + Redux Toolkit +
+React Router + Framer Motion + Tailwind + Axios, и бэкенд на Node.js/Express + Prisma (PostgreSQL)
+с JWT-авторизацией, загрузкой фото и AI-чатом поддержки.
 
-## Getting started
+## Возможности
+
+- Каталог объектов с фильтрами (тип, цена, спальни, сортировка) и поиском
+- Отдельная страница каждого объекта: галерея фото, описание, состояние, цена, контакты продавца
+- Полный CRUD объектов: владелец может создать, отредактировать и удалить своё объявление
+- Регистрация как покупатель или как владелец недвижимости
+- Владелец может разместить объект с фото — он сразу появляется в общем каталоге
+- Профиль: у покупателя — избранное, у владельца — свои объявления и обращения от покупателей
+- Плавающий чат поддержки с настоящим AI (Gemini бесплатно, либо Anthropic/OpenAI на выбор)
+- Axios-клиент с interceptors (JWT на каждый запрос, авто-логаут на 401)
+- Бэкенд и база данных поднимаются одной командой через Docker Compose
+
+## Структура
+
+```
+manhattan-estates/
+├── docker-compose.yml   ← поднимает backend + Postgres одной командой
+├── backend/              ← Node.js/Express API + Prisma
+│   ├── prisma/           ← схема БД и миграции
+│   └── Dockerfile
+└── src/                  ← React-фронтенд
+```
+
+## Запуск
+
+Нужны Node.js 18+ и Docker (для базы данных и бэкенда). Фронтенд запускается отдельно, без Docker.
+
+### 1. Настрой переменные окружения бэкенда
+
+```bash
+cd backend
+cp .env.example .env
+```
+
+Открой `.env` и впиши свой `GEMINI_API_KEY` (бесплатно, без карты — ключ на
+[aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)). Без ключа всё
+остальное всё равно заработает — не будет работать только чат поддержки.
+
+### 2. Подними бэкенд и базу данных
+
+Из корня проекта:
+
+```bash
+docker-compose up --build
+```
+
+Это одной командой поднимет PostgreSQL и API-сервер, применит миграции и наполнит базу
+демонстрационными объектами. API будет на `http://localhost:5000`.
+
+> Если Docker не установлен — можно поднять бэкенд и без него: установи Postgres локально,
+> пропиши его адрес в `DATABASE_URL` внутри `.env`, затем `cd backend && npm install &&
+> npm run migrate:deploy && npm run dev`.
+
+### 3. Запусти фронтенд
+
+В новом терминале, из корня проекта:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open the local URL Vite prints (usually http://localhost:5173).
+Открой адрес, который выведет Vite (обычно `http://localhost:5173`). Запросы к `/api` и
+`/uploads` автоматически проксируются на бэкенд.
 
-## Build
+## Заметки
 
-```bash
-npm run build
-npm run preview
-```
+- Фото объектов сохраняются в `backend/uploads/` (примонтировано как volume в Docker — не
+  теряются при пересборке контейнера).
+- Пароли хранятся как bcrypt-хэши, сессия — через JWT в localStorage.
+- ORM — Prisma; схема в `backend/prisma/schema.prisma`, миграция — в `backend/prisma/migrations/`.
+- CORS настроен на конкретный origin (`CORS_ORIGIN` в `.env`), а не разрешён для всех источников.

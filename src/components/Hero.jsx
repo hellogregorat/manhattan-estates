@@ -53,8 +53,8 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
           className="max-w-xl text-gray-400 text-lg mb-10 leading-relaxed"
         >
-          Exclusive collection of luxury properties across Manhattan and Brooklyn.
-          Where sophistication meets the city that never sleeps.
+          Search condos, lofts and townhouses across every Manhattan neighborhood —
+          from move-in-ready starter homes to landmark residences.
         </motion.p>
 
         <motion.a

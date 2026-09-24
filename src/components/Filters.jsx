@@ -1,19 +1,52 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
 import { Search } from 'lucide-react'
-import { setFilter } from '../store'
+import { setFilter } from '../store/propertiesSlice'
+import CustomSelect from './CustomSelect'
 
 export default function Filters() {
   const dispatch = useDispatch()
-  const filters = useSelector(state => state.properties.filters)
+  const filters = useSelector((state) => state.properties.filters)
+  const items = useSelector((state) => state.properties.items)
 
-  const types = ['all', 'penthouse', 'loft', 'apartment', 'townhouse', 'duplex']
-  const priceRanges = [
-    { label: 'All Prices', value: 'all' },
-    { label: 'Under $5M', value: '0-5000000' },
-    { label: '$5M - $10M', value: '5000000-10000000' },
-    { label: 'Over $10M', value: '10000000-999999999' }
+  const neighborhoodOptions = useMemo(() => {
+    const unique = Array.from(new Set(items.map((p) => p.location.split(',')[0].trim()))).sort()
+    return [{ value: 'all', label: 'All Neighborhoods' }, ...unique.map((n) => ({ value: n, label: n }))]
+  }, [items])
+
+  const typeOptions = [
+    { value: 'all', label: 'All Types' },
+    { value: 'apartment', label: 'Apartment' },
+    { value: 'condo', label: 'Condo' },
+    { value: 'loft', label: 'Loft' },
+    { value: 'duplex', label: 'Duplex' },
+    { value: 'townhouse', label: 'Townhouse' },
+    { value: 'house', label: 'House' },
+    { value: 'penthouse', label: 'Penthouse' }
+  ]
+
+  const priceOptions = [
+    { value: 'all', label: 'All Prices' },
+    { value: '0-1000000', label: 'Under $1M' },
+    { value: '1000000-2000000', label: '$1M – $2M' },
+    { value: '2000000-4000000', label: '$2M – $4M' },
+    { value: '4000000-8000000', label: '$4M – $8M' },
+    { value: '8000000-999999999', label: 'Over $8M' }
+  ]
+
+  const bedsOptions = [
+    { value: 'all', label: 'Any Beds' },
+    { value: '1', label: '1+ Beds' },
+    { value: '2', label: '2+ Beds' },
+    { value: '3', label: '3+ Beds' },
+    { value: '4', label: '4+ Beds' }
+  ]
+
+  const sortOptions = [
+    { value: 'newest', label: 'Newest' },
+    { value: 'price-asc', label: 'Price: Low to High' },
+    { value: 'price-desc', label: 'Price: High to Low' }
   ]
 
   return (
@@ -29,7 +62,7 @@ export default function Filters() {
           <span className="text-gradient">Curated</span> Properties
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
-          Hand-selected luxury residences representing the finest addresses in New York City
+          Manhattan homes across every neighborhood, from move-in-ready condos to landmark residences
         </p>
       </motion.div>
 
@@ -40,7 +73,7 @@ export default function Filters() {
         transition={{ duration: 0.6, delay: 0.2 }}
         className="glass rounded-2xl p-6 mb-12"
       >
-        <div className="flex flex-col lg:flex-row gap-6 items-center">
+        <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
           <div className="relative flex-1 w-full">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
             <input
@@ -53,27 +86,31 @@ export default function Filters() {
           </div>
 
           <div className="flex flex-wrap gap-3 w-full lg:w-auto">
-            <select
+            <CustomSelect
+              value={filters.neighborhood}
+              onChange={(e) => dispatch(setFilter({ neighborhood: e.target.value }))}
+              options={neighborhoodOptions}
+            />
+            <CustomSelect
               value={filters.type}
               onChange={(e) => dispatch(setFilter({ type: e.target.value }))}
-              className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#d4af37] cursor-pointer"
-            >
-              {types.map(t => (
-                <option key={t} value={t} className="bg-[#141414]">
-                  {t === 'all' ? 'All Types' : t.charAt(0).toUpperCase() + t.slice(1)}
-                </option>
-              ))}
-            </select>
-
-            <select
+              options={typeOptions}
+            />
+            <CustomSelect
               value={filters.priceRange}
               onChange={(e) => dispatch(setFilter({ priceRange: e.target.value }))}
-              className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-[#d4af37] cursor-pointer"
-            >
-              {priceRanges.map(r => (
-                <option key={r.value} value={r.value} className="bg-[#141414]">{r.label}</option>
-              ))}
-            </select>
+              options={priceOptions}
+            />
+            <CustomSelect
+              value={filters.beds}
+              onChange={(e) => dispatch(setFilter({ beds: e.target.value }))}
+              options={bedsOptions}
+            />
+            <CustomSelect
+              value={filters.sort}
+              onChange={(e) => dispatch(setFilter({ sort: e.target.value }))}
+              options={sortOptions}
+            />
           </div>
         </div>
       </motion.div>
