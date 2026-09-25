@@ -12,6 +12,7 @@ RUN npx prisma generate
 
 COPY . .
 
+RUN sed -i 's/\r$//' docker-entrypoint.sh
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 5000
