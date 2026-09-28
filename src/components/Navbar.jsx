@@ -22,7 +22,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: 'Home', to: '/' },
-    { label: 'Properties', to: '/#properties' },
+    { label: 'Listings', to: '/#properties' },
     { label: 'List Property', to: token ? '/list-property' : '/register' },
     { label: 'About', to: '/about' },
     { label: 'FAQ', to: '/faq' },

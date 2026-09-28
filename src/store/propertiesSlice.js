@@ -25,9 +25,16 @@ export const fetchFavorites = createAsyncThunk('properties/favorites', async () 
   return await api.get('/properties/favorites/mine')
 })
 
-export const toggleFavorite = createAsyncThunk('properties/toggleFavorite', async (id) => {
-  const res = await api.post(`/properties/${id}/favorite`, {})
-  return { id, favorited: res.favorited }
+export const toggleFavorite = createAsyncThunk('properties/toggleFavorite', async (id, { rejectWithValue }) => {
+  try {
+    const res = await api.post(`/properties/${id}/favorite`, {})
+    return { id, favorited: res.favorited }
+  } catch (e) {
+    // Surface the real reason in the console — previously this failed silently,
+    // which is why the heart button looked like it "did nothing" on error.
+    console.error('Failed to toggle favorite:', e.message)
+    return rejectWithValue(e.message)
+  }
 })
 
 export const sendInquiry = createAsyncThunk('properties/inquire', async ({ id, message }) => {
@@ -100,6 +107,9 @@ const propertiesSlice = createSlice({
           state.favoriteIds = state.favoriteIds.filter((f) => f !== id)
           state.favorites = state.favorites.filter((f) => f.id !== id)
         }
+      })
+      .addCase(toggleFavorite.rejected, (state, action) => {
+        state.error = action.payload || 'Failed to update favorite'
       })
       .addCase(fetchMyInquiries.fulfilled, (state, action) => {
         state.inquiries = action.payload

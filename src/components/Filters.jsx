@@ -60,7 +60,7 @@ export default function Filters({ view, onViewChange }) {
   }
 
   return (
-    <section id="properties" className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
+    <section id="properties" className="relative z-40 py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

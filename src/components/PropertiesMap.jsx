@@ -27,7 +27,7 @@ export default function PropertiesMap({ properties }) {
 
   return (
     <div className="rounded-2xl overflow-hidden h-[420px] md:h-[600px] border border-white/10 relative z-0">
-      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }} scrollWheelZoom={false}>
+      <MapContainer center={center} zoom={12} style={{ height: '100%', width: '100%' }} scrollWheelZoom={true}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

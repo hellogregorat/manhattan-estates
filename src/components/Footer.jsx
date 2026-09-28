@@ -5,7 +5,7 @@ import { Building2, Instagram, Twitter, Linkedin, ArrowUpRight } from 'lucide-re
 
 export default function Footer() {
   const quickLinks = [
-    { label: 'Properties', to: '/#properties' },
+    { label: 'Listings', to: '/#properties' },
     { label: 'List Property', to: '/list-property' },
     { label: 'About', to: '/about' },
     { label: 'FAQ', to: '/faq' }

@@ -107,7 +107,8 @@ export default function PropertyList() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
-            className="print:hidden fixed bottom-24 sm:bottom-6 left-1/2 -translate-x-1/2 z-[150] w-max max-w-[calc(100vw-2rem)] bg-[#141414]/95 backdrop-blur-xl rounded-2xl border border-white/10 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 shadow-2xl"
+            className="print:hidden fixed left-1/2 -translate-x-1/2 z-[300] w-max max-w-[calc(100vw-2rem)] bg-[#141414]/95 backdrop-blur-xl rounded-2xl border border-white/10 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 shadow-2xl"
+            style={{ bottom: 'calc(6rem + env(safe-area-inset-bottom, 0px))' }}
           >
             <span className="text-sm text-gray-300 flex items-center gap-2">
               <Scale className="w-4 h-4 text-[#d4af37]" /> {compareIds.length} selected to compare
