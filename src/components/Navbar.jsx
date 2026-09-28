@@ -43,20 +43,20 @@ export default function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`print:hidden fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled ? 'glass py-3' : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
           <Building2 className="w-8 h-8 text-[#d4af37] transition-transform group-hover:rotate-12" />
-          <span className="text-2xl font-bold tracking-tight">
+          <span className="text-xl sm:text-2xl font-bold tracking-tight">
             <span className="text-gradient">Manhattan</span>
             <span className="text-white font-light">Estates</span>
           </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden lg:flex items-center gap-5">
           {navLinks.map((link) => (
             <Link
               key={link.label}
@@ -105,7 +105,7 @@ export default function Navbar() {
             e.stopPropagation()
             dispatch(toggleMenu())
           }}
-          className="md:hidden p-2 text-white"
+          className="lg:hidden p-2 text-white"
         >
           {menuOpen ? <X /> : <Menu />}
         </button>
@@ -117,7 +117,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-white/10 overflow-hidden"
+            className="lg:hidden glass border-t border-white/10 overflow-y-auto max-h-[80vh]"
           >
             <div className="px-6 py-4 space-y-4">
               {navLinks.map((link, i) => (

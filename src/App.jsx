@@ -18,6 +18,7 @@ import EditProperty from './pages/EditProperty'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import FAQ from './pages/FAQ'
+import Compare from './pages/Compare'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/faq" element={<FAQ />} />
+        <Route path="/compare" element={<Compare />} />
         <Route
           path="/profile"
           element={

@@ -12,7 +12,7 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative border-t border-white/10">
+    <footer className="print:hidden relative border-t border-white/10">
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#050505]" />
 
       <div className="relative max-w-7xl mx-auto px-6 py-20">

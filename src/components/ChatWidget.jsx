@@ -42,14 +42,14 @@ export default function ChatWidget() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-[200]" onClick={(e) => e.stopPropagation()}>
+    <div className="print:hidden fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[200]" onClick={(e) => e.stopPropagation()}>
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="mb-4 w-80 sm:w-96 h-[28rem] glass rounded-2xl border border-white/10 flex flex-col overflow-hidden"
+            className="mb-4 w-[calc(100vw-2rem)] sm:w-96 h-[28rem] max-h-[70vh] glass rounded-2xl border border-white/10 flex flex-col overflow-hidden"
           >
             <div className="px-4 py-3 border-b border-white/10 flex items-center justify-between bg-black/30">
               <span className="font-semibold text-white text-sm">Support Chat</span>

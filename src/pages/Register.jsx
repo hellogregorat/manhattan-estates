@@ -18,11 +18,11 @@ export default function Register() {
   }
 
   return (
-    <div className="pt-32 pb-20 px-6 max-w-md mx-auto">
+    <div className="pt-28 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 max-w-md mx-auto">
       <h1 className="text-3xl font-bold mb-8 text-center">
         Create <span className="text-gradient">Account</span>
       </h1>
-      <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-4">
+      <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-8 space-y-4">
         <div className="grid grid-cols-2 gap-3">
           <button
             type="button"

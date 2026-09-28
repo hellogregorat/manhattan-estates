@@ -1,14 +1,17 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
-import { Search } from 'lucide-react'
+import { Search, BookmarkPlus, List, Map as MapIcon } from 'lucide-react'
 import { setFilter } from '../store/propertiesSlice'
+import { addSavedSearch } from '../store/savedSearchesSlice'
 import CustomSelect from './CustomSelect'
 
-export default function Filters() {
+export default function Filters({ view, onViewChange }) {
   const dispatch = useDispatch()
   const filters = useSelector((state) => state.properties.filters)
   const items = useSelector((state) => state.properties.items)
+  const [searchName, setSearchName] = useState('')
+  const [showSaveInput, setShowSaveInput] = useState(false)
 
   const neighborhoodOptions = useMemo(() => {
     const unique = Array.from(new Set(items.map((p) => p.location.split(',')[0].trim()))).sort()
@@ -49,8 +52,15 @@ export default function Filters() {
     { value: 'price-desc', label: 'Price: High to Low' }
   ]
 
+  const handleSaveSearch = () => {
+    if (!searchName.trim()) return
+    dispatch(addSavedSearch({ name: searchName.trim(), filters }))
+    setSearchName('')
+    setShowSaveInput(false)
+  }
+
   return (
-    <section id="properties" className="py-20 px-6 max-w-7xl mx-auto">
+    <section id="properties" className="py-14 sm:py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +68,7 @@ export default function Filters() {
         transition={{ duration: 0.8 }}
         className="text-center mb-12"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
           <span className="text-gradient">Curated</span> Properties
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
@@ -71,7 +81,7 @@ export default function Filters() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="glass rounded-2xl p-6 mb-12"
+        className="glass rounded-2xl p-4 sm:p-6 mb-8"
       >
         <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
           <div className="relative flex-1 w-full">
@@ -85,35 +95,78 @@ export default function Filters() {
             />
           </div>
 
-          <div className="flex flex-wrap gap-3 w-full lg:w-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full lg:w-auto lg:flex lg:flex-wrap">
             <CustomSelect
               value={filters.neighborhood}
-              onChange={(e) => dispatch(setFilter({ neighborhood: e.target.value }))}
+              onChange={(value) => dispatch(setFilter({ neighborhood: value }))}
               options={neighborhoodOptions}
             />
-            <CustomSelect
-              value={filters.type}
-              onChange={(e) => dispatch(setFilter({ type: e.target.value }))}
-              options={typeOptions}
-            />
+            <CustomSelect value={filters.type} onChange={(value) => dispatch(setFilter({ type: value }))} options={typeOptions} />
             <CustomSelect
               value={filters.priceRange}
-              onChange={(e) => dispatch(setFilter({ priceRange: e.target.value }))}
+              onChange={(value) => dispatch(setFilter({ priceRange: value }))}
               options={priceOptions}
             />
-            <CustomSelect
-              value={filters.beds}
-              onChange={(e) => dispatch(setFilter({ beds: e.target.value }))}
-              options={bedsOptions}
-            />
-            <CustomSelect
-              value={filters.sort}
-              onChange={(e) => dispatch(setFilter({ sort: e.target.value }))}
-              options={sortOptions}
-            />
+            <CustomSelect value={filters.beds} onChange={(value) => dispatch(setFilter({ beds: value }))} options={bedsOptions} />
+            <CustomSelect value={filters.sort} onChange={(value) => dispatch(setFilter({ sort: value }))} options={sortOptions} />
           </div>
         </div>
       </motion.div>
+
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+        <div>
+          {showSaveInput ? (
+            <div className="flex gap-2">
+              <input
+                type="text"
+                autoFocus
+                value={searchName}
+                onChange={(e) => setSearchName(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSaveSearch()}
+                placeholder="Name this search…"
+                className="px-3 py-2 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:border-[#d4af37]"
+              />
+              <button
+                onClick={handleSaveSearch}
+                className="px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-black text-sm font-semibold rounded-xl"
+              >
+                Save
+              </button>
+              <button onClick={() => setShowSaveInput(false)} className="px-3 py-2 text-sm text-gray-400 hover:text-white">
+                Cancel
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setShowSaveInput(true)}
+              className="flex items-center gap-2 text-sm text-gray-400 hover:text-[#d4af37] transition-colors"
+            >
+              <BookmarkPlus className="w-4 h-4" /> Save this search
+            </button>
+          )}
+        </div>
+
+        {onViewChange && (
+          <div className="flex gap-1 p-1 glass rounded-xl">
+            <button
+              onClick={() => onViewChange('list')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors ${
+                view === 'list' ? 'bg-[#d4af37] text-black' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <List className="w-4 h-4" /> List
+            </button>
+            <button
+              onClick={() => onViewChange('map')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm transition-colors ${
+                view === 'map' ? 'bg-[#d4af37] text-black' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              <MapIcon className="w-4 h-4" /> Map
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   )
 }

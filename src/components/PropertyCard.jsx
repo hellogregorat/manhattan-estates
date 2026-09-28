@@ -2,15 +2,18 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Heart, Bed, Bath, Maximize, MapPin, ArrowUpRight } from 'lucide-react'
+import { Heart, Bed, Bath, Maximize, MapPin, ArrowUpRight, Scale } from 'lucide-react'
 import { toggleFavorite } from '../store/propertiesSlice'
+import { toggleCompare } from '../store/compareSlice'
 import { resolveImage } from '../config'
 
 export default function PropertyCard({ property, index }) {
   const dispatch = useDispatch()
   const { token, user } = useSelector((state) => state.auth)
   const favoriteIds = useSelector((state) => state.properties.favoriteIds)
+  const compareIds = useSelector((state) => state.compare.ids)
   const isFav = favoriteIds.includes(property.id)
+  const isComparing = compareIds.includes(property.id)
 
   const formatPrice = (price) => {
     if (price >= 1000000) return `$${(price / 1000000).toFixed(1)}M`
@@ -24,6 +27,12 @@ export default function PropertyCard({ property, index }) {
     e.stopPropagation()
     if (!token) return
     dispatch(toggleFavorite(property.id))
+  }
+
+  const handleCompare = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    dispatch(toggleCompare(property.id))
   }
 
   return (
@@ -97,6 +106,16 @@ export default function PropertyCard({ property, index }) {
           <Heart className={`w-4 h-4 ${isFav ? 'fill-current' : ''}`} />
         </button>
       )}
+
+      <button
+        onClick={handleCompare}
+        className={`absolute top-4 z-10 p-2 rounded-full transition-all ${user ? 'right-16' : 'right-4'} ${
+          isComparing ? 'bg-[#d4af37] text-black' : 'bg-black/50 text-white hover:bg-black/70'
+        }`}
+        title="Add to compare"
+      >
+        <Scale className="w-4 h-4" />
+      </button>
     </motion.div>
   )
 }

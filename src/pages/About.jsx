@@ -29,7 +29,7 @@ const team = [
 
 export default function About() {
   return (
-    <div className="pt-28 pb-20 px-6 max-w-5xl mx-auto">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           About <span className="text-gradient">Manhattan Estates</span>

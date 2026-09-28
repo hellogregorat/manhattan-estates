@@ -60,11 +60,11 @@ export default function EditProperty() {
   }
 
   return (
-    <div className="pt-28 pb-20 px-6 max-w-2xl mx-auto">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-6 max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">
         Edit <span className="text-gradient">Property</span>
       </h1>
-      <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-4">
+      <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-8 space-y-4">
         <input
           type="text"
           placeholder="Title"
@@ -74,7 +74,7 @@ export default function EditProperty() {
           className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#d4af37]"
         />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
           <select
             value={form.type}
             onChange={update('type')}
@@ -108,7 +108,7 @@ export default function EditProperty() {
           className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-[#d4af37]"
         />
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
           <input
             type="number"
             placeholder="Price ($)"
@@ -126,7 +126,7 @@ export default function EditProperty() {
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-3">
           <input
             type="number"
             placeholder="Bedrooms"

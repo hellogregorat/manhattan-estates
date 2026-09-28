@@ -12,7 +12,7 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
 
   return (
-    <section ref={ref} className="relative h-screen overflow-hidden">
+    <section ref={ref} className="relative min-h-[100svh] h-screen overflow-hidden">
       <motion.div style={{ y }} className="absolute inset-0">
         <div
           className="absolute inset-0 bg-cover bg-center scale-110"

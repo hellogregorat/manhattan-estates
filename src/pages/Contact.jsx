@@ -25,7 +25,7 @@ export default function Contact() {
   }
 
   return (
-    <div className="pt-28 pb-20 px-6 max-w-5xl mx-auto">
+    <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-6 max-w-5xl mx-auto">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Get in <span className="text-gradient">Touch</span>
@@ -64,7 +64,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="glass rounded-2xl p-8 space-y-4">
+        <form onSubmit={handleSubmit} className="glass rounded-2xl p-5 sm:p-8 space-y-4">
           {status === 'sent' ? (
             <p className="text-[#d4af37]">Thanks — your message has been sent. We'll be in touch soon.</p>
           ) : (
