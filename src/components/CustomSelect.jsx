@@ -1,22 +1,51 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useLayoutEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown } from 'lucide-react'
 
 export default function CustomSelect({ value, onChange, options }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef(null)
+  const [rect, setRect] = useState(null)
+  const buttonRef = useRef(null)
+  const panelRef = useRef(null)
   const selected = options.find((o) => o.value === value) || options[0]
 
+  const updateRect = () => {
+    if (buttonRef.current) setRect(buttonRef.current.getBoundingClientRect())
+  }
+
+  useLayoutEffect(() => {
+    if (open) updateRect()
+  }, [open])
+
   useEffect(() => {
+    if (!open) return
+
     const handleClick = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+      if (
+        buttonRef.current &&
+        !buttonRef.current.contains(e.target) &&
+        panelRef.current &&
+        !panelRef.current.contains(e.target)
+      ) {
+        setOpen(false)
+      }
     }
+    const handleReposition = () => updateRect()
+
     document.addEventListener('mousedown', handleClick)
-    return () => document.removeEventListener('mousedown', handleClick)
-  }, [])
+    window.addEventListener('scroll', handleReposition, true)
+    window.addEventListener('resize', handleReposition)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      window.removeEventListener('scroll', handleReposition, true)
+      window.removeEventListener('resize', handleReposition)
+    }
+  }, [open])
 
   return (
-    <div className="relative w-full sm:w-auto" ref={ref}>
+    <div className="relative w-full sm:w-auto">
       <button
+        ref={buttonRef}
         type="button"
         onClick={(e) => {
           e.stopPropagation()
@@ -28,25 +57,38 @@ export default function CustomSelect({ value, onChange, options }) {
         <ChevronDown className={`w-4 h-4 text-[#d4af37] transition-transform flex-shrink-0 ${open ? 'rotate-180' : ''}`} />
       </button>
 
-      {open && (
-        <div className="absolute z-30 mt-2 min-w-full sm:min-w-[190px] w-max max-w-[calc(100vw-2rem)] max-h-72 overflow-y-auto rounded-xl border border-white/10 bg-[#141414]/95 backdrop-blur-xl shadow-2xl py-1">
-          {options.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              onClick={() => {
-                onChange(opt.value)
-                setOpen(false)
-              }}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                opt.value === value ? 'text-[#d4af37] bg-white/5 font-medium' : 'text-gray-300 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
-      )}
+      {open &&
+        rect &&
+        createPortal(
+          <div
+            ref={panelRef}
+            style={{
+              position: 'fixed',
+              top: rect.bottom + 8,
+              left: rect.left,
+              width: Math.max(rect.width, 190),
+              maxWidth: 'calc(100vw - 2rem)'
+            }}
+            className="z-[9999] max-h-72 overflow-y-auto rounded-xl border border-white/10 bg-[#141414] shadow-2xl py-1"
+          >
+            {options.map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => {
+                  onChange(opt.value)
+                  setOpen(false)
+                }}
+                className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                  opt.value === value ? 'text-[#d4af37] bg-white/5 font-medium' : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>,
+          document.body
+        )}
     </div>
   )
 }

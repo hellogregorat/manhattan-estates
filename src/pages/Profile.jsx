@@ -114,7 +114,7 @@ export default function Profile() {
 
       <div>
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <Heart className="w-5 h-5 text-[#d4af37]" /> Saved Properties
+            <Heart className="w-5 h-5 text-[#d4af37]" /> Saved Listings
           </h2>
           {favorites.length === 0 ? (
             <p className="text-gray-500">No saved properties yet. Browse listings and tap the heart icon to save one.</p>
