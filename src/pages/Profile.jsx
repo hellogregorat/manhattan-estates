@@ -15,7 +15,7 @@ export default function Profile() {
   const savedSearches = useSelector((state) => state.savedSearches.items)
 
   useEffect(() => {
-    if (user?.role === 'buyer') dispatch(fetchFavorites())
+    if (user) dispatch(fetchFavorites())
     if (user?.role === 'owner') {
       dispatch(fetchMyListings())
       dispatch(fetchMyInquiries())
@@ -112,8 +112,7 @@ export default function Profile() {
         )}
       </div>
 
-      {user?.role === 'buyer' && (
-        <div>
+      <div>
           <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
             <Heart className="w-5 h-5 text-[#d4af37]" /> Saved Properties
           </h2>
@@ -127,7 +126,6 @@ export default function Profile() {
             </div>
           )}
         </div>
-      )}
 
       {user?.role === 'owner' && (
         <div className="space-y-12">
