@@ -112,20 +112,20 @@ export default function Profile() {
         )}
       </div>
 
-      <div>
-          <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-            <Heart className="w-5 h-5 text-[#d4af37]" /> Saved Listings
-          </h2>
-          {favorites.length === 0 ? (
-            <p className="text-gray-500">No saved properties yet. Browse listings and tap the heart icon to save one.</p>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {favorites.map((p, i) => (
-                <PropertyCard key={p.id} property={p} index={i} />
-              ))}
-            </div>
-          )}
-        </div>
+      <div className="mb-12">
+        <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+          <Heart className="w-5 h-5 text-[#d4af37]" /> Saved Listings
+        </h2>
+        {favorites.length === 0 ? (
+          <p className="text-gray-500">No saved properties yet. Browse listings and tap the heart icon to save one.</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {favorites.map((p, i) => (
+              <PropertyCard key={p.id} property={p} index={i} />
+            ))}
+          </div>
+        )}
+      </div>
 
       {user?.role === 'owner' && (
         <div className="space-y-12">
