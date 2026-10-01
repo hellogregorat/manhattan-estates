@@ -15,7 +15,7 @@ export default function SimilarProperties({ current }) {
   return (
     <div className="max-w-6xl mx-auto px-6 pb-20">
       <h2 className="text-2xl font-bold mb-6">
-        Similar <span className="text-gradient">Properties</span>
+        Similar <span className="text-gradient">Listings</span>
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {similar.map((p, i) => (

@@ -66,7 +66,7 @@ export default function Hero() {
           whileTap={{ scale: 0.95 }}
           className="px-8 py-4 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-black font-semibold rounded-full hover:shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-shadow"
         >
-          Explore Properties
+          Explore Listings
         </motion.a>
 
         <motion.div

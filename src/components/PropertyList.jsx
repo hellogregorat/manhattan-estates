@@ -103,26 +103,38 @@ export default function PropertyList() {
 
       <AnimatePresence>
         {compareIds.length >= 2 && (
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            className="print:hidden fixed left-1/2 -translate-x-1/2 z-[300] w-max max-w-[calc(100vw-2rem)] bg-[#141414]/95 backdrop-blur-xl rounded-2xl border border-white/10 px-4 sm:px-5 py-3 flex flex-wrap items-center justify-center gap-3 sm:gap-4 shadow-2xl"
-            style={{ bottom: 'calc(6rem + env(safe-area-inset-bottom, 0px))' }}
+          // Centering (-translate-x-1/2) lives on this plain, unanimated wrapper.
+          // Framer Motion writes its own `transform` for the y-animation on the
+          // inner element — if both lived on the same node, Motion's inline
+          // style would silently overwrite the Tailwind centering transform.
+          <div
+            className="print:hidden fixed left-1/2 -translate-x-1/2 z-[300] w-[calc(100vw-2rem)] sm:w-max max-w-sm"
+            style={{ bottom: 'calc(6.5rem + env(safe-area-inset-bottom, 0px))' }}
           >
-            <span className="text-sm text-gray-300 flex items-center gap-2">
-              <Scale className="w-4 h-4 text-[#d4af37]" /> {compareIds.length} selected to compare
-            </span>
-            <Link
-              to={`/compare?ids=${compareIds.join(',')}`}
-              className="px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-black text-sm font-semibold rounded-xl"
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 40 }}
+              className="bg-[#141414] rounded-2xl border border-white/10 px-4 py-3 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 shadow-2xl"
             >
-              Compare
-            </Link>
-            <button onClick={() => dispatch(clearCompare())} className="text-gray-500 hover:text-white">
-              <X className="w-4 h-4" />
-            </button>
-          </motion.div>
+              <span className="text-sm text-gray-300 flex items-center gap-2 whitespace-nowrap">
+                <Scale className="w-4 h-4 text-[#d4af37] flex-shrink-0" />
+                <span className="sm:hidden">{compareIds.length} to compare</span>
+                <span className="hidden sm:inline">{compareIds.length} selected to compare</span>
+              </span>
+              <div className="flex items-center gap-3">
+                <Link
+                  to={`/compare?ids=${compareIds.join(',')}`}
+                  className="px-4 py-2 bg-gradient-to-r from-[#d4af37] to-[#b8941f] text-black text-sm font-semibold rounded-xl whitespace-nowrap"
+                >
+                  Compare
+                </Link>
+                <button onClick={() => dispatch(clearCompare())} className="text-gray-500 hover:text-white flex-shrink-0">
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

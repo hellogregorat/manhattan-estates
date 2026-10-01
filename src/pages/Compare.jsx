@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { X } from 'lucide-react'
+import { X, ArrowLeftRight } from 'lucide-react'
 import { fetchProperties } from '../store/propertiesSlice'
 import { toggleCompare } from '../store/compareSlice'
 import { resolveImage } from '../config'
@@ -50,48 +50,66 @@ export default function Compare() {
 
   return (
     <div className="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-6 max-w-6xl mx-auto">
-      <h1 className="text-3xl md:text-4xl font-bold mb-8">
-        Compare <span className="text-gradient">Properties</span>
+      <h1 className="text-3xl md:text-4xl font-bold mb-2">
+        Compare <span className="text-gradient">Listings</span>
       </h1>
+      <div className="mb-8">
+        {properties.length > 1 && (
+          <p className="flex items-center gap-2 text-sm text-gray-500 sm:hidden">
+            <ArrowLeftRight className="w-4 h-4" /> Swipe sideways to see every listing
+          </p>
+        )}
+      </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse min-w-[600px]">
-          <thead>
-            <tr>
-              <th className="text-left p-3 text-gray-500 text-sm w-40"></th>
+      <div className="glass rounded-2xl overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="border-collapse table-fixed">
+            <colgroup>
+              <col className="w-32 sm:w-44" />
               {properties.map((p) => (
-                <th key={p.id} className="p-3 align-top">
-                  <div className="glass rounded-xl overflow-hidden relative">
-                    <button
-                      onClick={() => dispatch(toggleCompare(p.id))}
-                      className="absolute top-2 right-2 z-10 p-1.5 bg-black/50 rounded-full text-white hover:bg-black/70"
-                    >
-                      <X className="w-3.5 h-3.5" />
-                    </button>
-                    <img src={resolveImage(p.images?.[0])} alt={p.title} className="w-full h-32 object-cover" />
-                    <div className="p-3">
-                      <Link to={`/property/${p.id}`} className="text-sm font-semibold text-white hover:text-[#d4af37]">
-                        {p.title}
-                      </Link>
-                    </div>
-                  </div>
-                </th>
+                <col key={p.id} className="w-40 sm:w-52" />
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row.label} className="border-t border-white/10">
-                <td className="p-3 text-sm text-gray-500">{row.label}</td>
+            </colgroup>
+            <thead>
+              <tr>
+                <th className="sticky left-0 z-10 bg-[#141414] p-4 text-left align-bottom"></th>
                 {properties.map((p) => (
-                  <td key={p.id} className="p-3 text-sm text-white text-center">
-                    {row.render(p)}
-                  </td>
+                  <th key={p.id} className="p-4 align-top">
+                    <div className="rounded-xl overflow-hidden relative bg-white/5">
+                      <button
+                        onClick={() => dispatch(toggleCompare(p.id))}
+                        className="absolute top-2 right-2 z-10 p-1.5 bg-black/60 rounded-full text-white hover:bg-black/80"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                      <img src={resolveImage(p.images?.[0])} alt={p.title} className="w-full h-28 sm:h-32 object-cover" />
+                      <div className="p-3">
+                        <Link
+                          to={`/property/${p.id}`}
+                          className="block text-sm font-semibold text-white hover:text-[#d4af37] leading-snug line-clamp-2"
+                        >
+                          {p.title}
+                        </Link>
+                      </div>
+                    </div>
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <tr key={row.label} className={i % 2 === 0 ? 'bg-white/[0.02]' : ''}>
+                  <td className="sticky left-0 z-10 bg-[#141414] p-4 text-sm text-gray-500 whitespace-nowrap">{row.label}</td>
+                  {properties.map((p) => (
+                    <td key={p.id} className="p-4 text-sm text-white text-center">
+                      {row.render(p)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

@@ -69,7 +69,7 @@ export default function Filters({ view, onViewChange }) {
         className="text-center mb-12"
       >
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
-          <span className="text-gradient">Curated</span> Properties
+          <span className="text-gradient">Curated</span> Listings
         </h2>
         <p className="text-gray-400 max-w-2xl mx-auto">
           Manhattan homes across every neighborhood, from move-in-ready condos to landmark residences
